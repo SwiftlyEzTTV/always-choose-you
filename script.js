@@ -184,3 +184,48 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// --- Fullscreen image lightbox (auto-creates the HTML) ---
+(function () {
+  const lightbox = document.createElement("div");
+  lightbox.className = "lightbox";
+  lightbox.innerHTML = `
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img alt="Expanded image">
+  `;
+  document.body.appendChild(lightbox);
+
+  const lbImg = lightbox.querySelector("img");
+  const closeBtn = lightbox.querySelector(".lightbox-close");
+
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || "Expanded image";
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    lightbox.classList.remove("open");
+    lbImg.src = "";
+    document.body.style.overflow = "";
+  }
+
+  // click any image in these sections
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".gallery-grid img, .moments img");
+    if (!img) return;
+    open(img.currentSrc || img.src, img.alt);
+  });
+
+  // close rules
+  closeBtn.addEventListener("click", close);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+})();
+
+
