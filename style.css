@@ -285,3 +285,10 @@ body{
   opacity: 0.9 !important;
   transform: none !important;
 }
+
+/* FORCE the words to show (in case JS doesn't add .show) */
+.words span{
+  opacity: 0.9 !important;
+  transform: none !important;
+}
+
