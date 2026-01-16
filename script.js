@@ -1,146 +1,151 @@
-window.scrollTo(0, 0);
-
+// ---- Elements ----
 const heart = document.getElementById("heart");
 const container = document.querySelector(".container");
 const message = document.getElementById("message");
-const words = document.querySelectorAll(".words span");
+const words = document.querySelectorAll("#message .words span");
 const subMessage = document.getElementById("sub-message");
 
-const bgA = document.querySelector(".bg-a");
-const bgB = document.querySelector(".bg-b");
-const flash = document.querySelector(".flash");
+const bgA = document.querySelector(".page-bg .bg-a");
+const bgB = document.querySelector(".page-bg .bg-b");
+const flash = document.querySelector(".page-bg .flash");
 
 const music = document.getElementById("music");
 const playBtn = document.getElementById("playBtn");
 
-let musicStarted = false;
-
+// ---- Slideshow images (put your real filenames here) ----
 const images = [
   "FiveM_GTAProcess_oEmscc2RQC.webp",
   "FiveM_GTAProcess_R8JTZR0Nit.webp",
   "image.webp",
-  "image (1).webp"
-].map(encodeURI);
+  "image (1).webp",
+  "FiveM_GTAProcess_8hm8QXAMP6.webp",
+  "image44.webp",
+  "Screenshot_2025-12-14_090821.webp",
+  "image (3).webp",
+].map((s) => encodeURI(s)); // handles spaces
 
 let imgIndex = 0;
 let showingA = true;
-let slideshowTimer = null;
 
+// ---- Helpers ----
 function setBg(el, src) {
   if (!el) return;
-  el.style.backgroundImage = 'url("' + src + '")';
-}
-
-function preloadImages(list) {
-  for (let k = 0; k < list.length; k++) {
-    const img = new Image();
-    img.src = list[k];
-  }
+  el.style.backgroundImage = `url("${src}")`;
 }
 
 function flashOnce() {
   if (!flash) return;
   flash.classList.add("on");
-  setTimeout(function () {
-    flash.classList.remove("on");
-  }, 120);
+  setTimeout(() => flash.classList.remove("on"), 120);
 }
 
+function preload(list) {
+  list.forEach((src) => {
+    const i = new Image();
+    i.src = src;
+  });
+}
+
+// ---- Slideshow loop ----
 function nextImage() {
   if (!bgA || !bgB || images.length === 0) return;
 
-  const nextSrc = images[imgIndex % images.length];
+  const src = images[imgIndex % images.length];
   imgIndex++;
 
   flashOnce();
 
   if (showingA) {
-    setBg(bgB, nextSrc);
+    setBg(bgB, src);
     bgB.style.opacity = "1";
     bgA.style.opacity = "0";
   } else {
-    setBg(bgA, nextSrc);
+    setBg(bgA, src);
     bgA.style.opacity = "1";
     bgB.style.opacity = "0";
   }
 
   showingA = !showingA;
-  slideshowTimer = setTimeout(nextImage, 3500);
+  setTimeout(nextImage, 3500);
 }
 
+// ---- Heartbeat ----
 function beat(scale, duration) {
-  if (!heart || !message) return;
+  if (!heart) return;
 
-  heart.style.transition = "transform " + duration + "ms ease-in-out";
-  heart.style.transform = "rotate(-45deg) scale(" + scale + ")";
-
-  message.style.transition = "transform " + duration + "ms ease-in-out, opacity " + duration + "ms ease-in-out";
-  message.style.transform = "scale(" + (1 + (scale - 1) * 0.2) + ")";
-  message.style.opacity = String(0.85 + (scale - 1) * 0.35);
+  heart.style.transition = `transform ${duration}ms ease-in-out`;
+  heart.style.transform = `rotate(-45deg) scale(${scale})`;
 }
 
 function heartbeat() {
-  const lub = 1.22 + Math.random() * 0.08;
-  const dub = 1.10 + Math.random() * 0.06;
+  // human-ish lub-dub with random timing
+  const lub = 1.25 + Math.random() * 0.10;
+  const dub = 1.12 + Math.random() * 0.07;
 
   beat(lub, 120);
-  setTimeout(function () { beat(dub, 90); }, 150);
-  setTimeout(function () { beat(1, 200); }, 330);
+  setTimeout(() => beat(dub, 90), 150);
+  setTimeout(() => beat(1, 180), 320);
 
-  const pause = 900 + Math.random() * 500;
-  setTimeout(heartbeat, pause);
+  const next = 780 + Math.random() * 520;
+  setTimeout(heartbeat, next);
 }
 
+// ---- Word reveal ----
 function revealWords() {
-  if (!words || words.length === 0) return;
-  for (let i = 0; i < words.length; i++) {
-    (function (idx) {
-      setTimeout(function () {
-        words[idx].classList.add("show");
-      }, idx * 220);
-    })(i);
-  }
-}
-
-function startMusic() {
-  if (musicStarted || !music) return;
-  music.volume = 0.4;
-  music.play().catch(function (err) {
-    console.log("Music play failed:", err);
+  if (!words.length) return;
+  words.forEach((w, i) => {
+    setTimeout(() => w.classList.add("show"), i * 180);
   });
-  musicStarted = true;
 }
 
-window.addEventListener("load", function () {
-  // Always show the card even if slideshow fails
+// ---- Music ----
+function startMusic() {
+  if (!music) return;
+  music.volume = 0.4;
+  music.play().catch(() => {
+    // autoplay rules: user must click button/heart
+  });
+}
+
+// ---- Boot ----
+window.addEventListener("load", () => {
+  // make sure we start at top
+  window.scrollTo(0, 0);
+
+  // entrance
   if (container) {
     container.classList.add("show");
-    setTimeout(function () { container.classList.add("show-text"); }, 650);
-    setTimeout(function () { container.classList.add("show-sub"); }, 950);
+    setTimeout(() => {
+      container.classList.add("show-text");
+      revealWords();
+    }, 400);
+
+    setTimeout(() => {
+      container.classList.add("show-sub");
+    }, 700);
   }
 
-  preloadImages(images);
-
+  // slideshow
+  preload(images);
   if (bgA && images.length) {
     setBg(bgA, images[0]);
-    bgA.
+    bgA.style.opacity = "1";
+    imgIndex = 1;
+  }
+  setTimeout(nextImage, 3500);
 
-
-const hero = document.querySelector(".hero");
-
-window.addEventListener("scroll", () => {
-  if (!hero) return;
-
-  // hide card once user scrolls down a bit
-  if (window.scrollY > 80) hero.classList.add("is-hidden");
-  else hero.classList.remove("is-hidden");
+  // heartbeat
+  setTimeout(heartbeat, 900);
 });
 
-const hero = document.querySelector(".hero");
+// click surge
+if (heart) {
+  heart.addEventListener("click", () => {
+    beat(1.6, 120);
+    startMusic();
+  });
+}
 
-window.addEventListener("scroll", () => {
-  if (!hero) return;
-  if (window.scrollY > 80) hero.classList.add("is-hidden");
-  else hero.classList.remove("is-hidden");
-});
-
+if (playBtn) {
+  playBtn.addEventListener("click", startMusic);
+}
