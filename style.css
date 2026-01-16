@@ -84,52 +84,6 @@
   pointer-events: auto;
 }
 
-.lightbox{
-  position: fixed;
-  inset: 0;
-  display: none;
-  background: rgba(0,0,0,0.88);
-  z-index: 9999;
-}
-
-.lightbox.open{
-  display: block;
-}
-
-/* close button */
-.lightbox-close{
-  position: fixed;
-  top: 14px;
-  right: 16px;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.92);
-  font-size: 30px;
-  cursor: pointer;
-  z-index: 10000;
-}
-.lightbox-close:hover{
-  background: rgba(255,255,255,0.18);
-}
-
-/* FULL SCREEN IMAGE */
-.lightbox img{
-  position: absolute;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-
-  /* ✅ shows the entire image (no crop) */
-  object-fit: contain;
-
-  /* optional: keep it crisp */
-  image-rendering: auto;
-}
-
-
 body{
   margin: 0;
   font-family: Georgia, serif;
@@ -384,12 +338,53 @@ body{
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-
 .moment img:hover{
   transform: scale(1.06);
   box-shadow: 0 18px 40px rgba(0,0,0,0.6);
 }
 
+/* --- FULLSCREEN LIGHTBOX (paste at end of file) --- */
+.lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  display: none;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox.open {
+  display: block !important;
+}
+
+.lightbox img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+
+  /* ✅ shows the entire image */
+  object-fit: contain !important;
+}
+
+.lightbox-close {
+  position: fixed !important;
+  top: 14px !important;
+  right: 16px !important;
+  z-index: 100000 !important;
+
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+  font-size: 30px;
+  line-height: 42px;
+  cursor: pointer;
+}
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.20);
+}
 
 
 
