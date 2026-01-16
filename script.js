@@ -14,10 +14,27 @@ const playBtn = document.getElementById("playBtn");
 // ✅ Put ALL your image filenames here (same folder as index.html)
 // If you moved them into /images, use: "images/filename.webp"
 const images = [
-  "./FiveM_GTAProcess_oEmscc2RQC.webp",
-  "./FiveM_GTAProcess_R8JTZR0Nit.webp",
-  "./image.webp",
-  "./image (1).webp",
+  "FiveM_GTAProcess_oEmscc2RQC.webp",
+  "FiveM_GTAProcess_R8JTZR0Nit.webp",
+  "image.webp",
+  "image (1).webp",
+  "FiveM_GTAProcess_8hm8QXAMP6.webp",
+  "download (2).png",
+  "download.png",
+  "image (4).webp",
+  "image (2).webp",
+  "image (3).webp",
+  "image44.webp",
+  "image99.webp",
+  "image76.webp",
+  "Screenshot_2025-12-07_060603.webp",
+  "Screenshot_2025-12-14_085437.webp",
+  "Screenshot_2025-12-14_090640.webp",
+  "Screenshot_2025-12-14_090741.webp",
+  "Screenshot_2025-12-14_090821.webp",
+  "Screenshot_2025-12-14_090904.webp",
+  "Screenshot_2025-12-14_091113.webp,
+
 ].map(encodeURI); // handles spaces like "image (1).webp"
 
 let imgIndex = 0;
@@ -154,3 +171,4 @@ if (heart) {
 if (playBtn) {
   playBtn.addEventListener("click", startMusic);
 }
+
