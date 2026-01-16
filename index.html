@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Always Choose You</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- FULL PAGE BACKGROUND SLIDESHOW -->
+  <div class="page-bg" aria-hidden="true">
+    <div class="bg bg-a"></div>
+    <div class="bg bg-b"></div>
+    <div class="flash"></div>
+  </div>
+
+  <!-- GLASS CARD -->
+  <div class="container">
+    <div id="heart" role="button" aria-label="Heart"></div>
+
+    <p id="message">
+      <span class="name">Sabrina</span>,
+      <span class="words">
+        <span> I</span>
+        <span> will</span>
+        <span> always</span>
+        <span> choose</span>
+        <span> you</span>
+      </span>
+    </p>
+
+    <p id="sub-message">Forever. No matter what.</p>
+
+    <!-- Music button (required for autoplay rules) -->
+    <button id="playBtn" type="button">Play music</button>
+
+    <div class="letter">
+      <p>
+        I want to tell you this, baby, and I don’t even know why I feel the need to say it out loud.
+        I don’t even know if I’ll ever send you this, but I’m scared to death. I’m scared that one
+        day you’ll really see me for who I am and decide that I’m not good enough for you. I’m scared
+        that you’ll realize there are people out there who are smarter, kinder, more exciting, more
+        stable—people who could give you more than I ever could. I’m scared that one day you’ll wake
+        up and feel like I’m no longer what you want or need.
+      </p>
+
+      <p>
+        I’m scared that I won’t be enough to keep you happy, that I’ll fail you in ways I don’t even
+        see coming yet. I’m scared that you’ll slowly grow tired of me, of my flaws, my fears, my
+        mistakes, and that you’ll find someone who makes loving you feel easier. I’m scared of the
+        thought of you smiling the same way you do with me, but for someone else. I’m scared of
+        losing the place I have in your life, of becoming just a memory instead of your choice.
+      </p>
+
+      <p>
+        And the scariest part is that none of this comes from a lack of trust in you—it comes from how
+        much I love you. Because loving you means you matter enough to hurt me if I lose you. It means
+        I care so deeply that the thought of a life without you feels unbearable. I don’t say this
+        because I doubt us; I say it because you mean everything to me, and the idea of not being enough
+        for someone who means that much is terrifying.
+      </p>
+    </div>
+  </div>
+
+<!-- AUDIO (must be started by a user action) -->
+<audio id="music" src="music.mp3" preload="auto" loop></audio>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
