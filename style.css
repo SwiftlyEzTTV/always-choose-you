@@ -7,16 +7,18 @@
   --panelBorder: rgba(255, 255, 255, 0.10);
 }
 
+/* fixed centered glass card */
 .hero{
   position: fixed;
   inset: 0;
-  padding: 24px;
-  box-sizing: border-box;
   display: grid;
   place-items: center;
+  padding: 24px;
   z-index: 10;
   pointer-events: none;
+  box-sizing: border-box;
 }
+
 .hero .container{
   pointer-events: auto;
 }
@@ -68,15 +70,11 @@
 .page-bg .flash.on{ opacity:0.12; }
 
 body{
-  min-height: 100vh;
   margin: 0;
-  color: var(--text);
   font-family: Georgia, serif;
-
-  /* allow scroll sections */
-  display: block;
+  color: var(--text);
+  min-height: 200vh; /* ensures there is scroll space */
 }
-
 
 /* GLASS CARD */
 .container{
@@ -94,7 +92,7 @@ body{
   -webkit-backdrop-filter: blur(14px);
 
   transform: translateY(140px);
-  opacity: 0;
+  opacity: 1;
 }
 
 /* Overshoot entrance */
@@ -222,15 +220,16 @@ body{
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
 
 
+/* the gallery lives BELOW the first screen */
 .gallery{
-  width: min(960px, 92vw);
-  margin: 40px auto 60px;
-  padding: 18px 16px;
-  margin-top: calc(100vh +40px);
   position: relative;
   z-index: 2;
+  margin-top: 110vh;  /* 👈 scroll required */
+  width: min(960px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 18px 16px;
 
-  /* not glass, just clean */
   background: rgba(0,0,0,0.18);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
@@ -260,5 +259,6 @@ body{
   /* ✅ ensure NOT blurred */
   filter: none !important;
 }
+
 
 
