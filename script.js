@@ -1,36 +1,36 @@
-// ---- Elements ----
 const heart = document.getElementById("heart");
 const container = document.querySelector(".container");
 const message = document.getElementById("message");
-const words = document.querySelectorAll("#message .words span");
 const subMessage = document.getElementById("sub-message");
+const words = document.querySelectorAll(".words span");
 
-const bgA = document.querySelector(".page-bg .bg-a");
-const bgB = document.querySelector(".page-bg .bg-b");
-const flash = document.querySelector(".page-bg .flash");
+const bgA = document.querySelector(".bg-a");
+const bgB = document.querySelector(".bg-b");
+const flash = document.querySelector(".flash");
 
 const music = document.getElementById("music");
 const playBtn = document.getElementById("playBtn");
 
-// ---- Slideshow images (put your real filenames here) ----
+// Put your images here (exact filenames, case-sensitive on GitHub Pages)
 const images = [
-  "FiveM_GTAProcess_oEmscc2RQC.webp",
-  "FiveM_GTAProcess_R8JTZR0Nit.webp",
-  "image.webp",
-  "image (1).webp",
   "FiveM_GTAProcess_8hm8QXAMP6.webp",
   "image44.webp",
   "Screenshot_2025-12-14_090821.webp",
   "image (3).webp",
-].map((s) => encodeURI(s)); // handles spaces
+];
 
+// --- Background slideshow ---
 let imgIndex = 0;
 let showingA = true;
 
-// ---- Helpers ----
+function safeUrl(src) {
+  // handles spaces + parentheses safely
+  return encodeURI(src);
+}
+
 function setBg(el, src) {
   if (!el) return;
-  el.style.backgroundImage = `url("${src}")`;
+  el.style.backgroundImage = `url("${safeUrl(src)}")`;
 }
 
 function flashOnce() {
@@ -39,16 +39,8 @@ function flashOnce() {
   setTimeout(() => flash.classList.remove("on"), 120);
 }
 
-function preload(list) {
-  list.forEach((src) => {
-    const i = new Image();
-    i.src = src;
-  });
-}
-
-// ---- Slideshow loop ----
 function nextImage() {
-  if (!bgA || !bgB || images.length === 0) return;
+  if (!bgA || !bgB || images.length < 1) return;
 
   const src = images[imgIndex % images.length];
   imgIndex++;
@@ -69,7 +61,7 @@ function nextImage() {
   setTimeout(nextImage, 3500);
 }
 
-// ---- Heartbeat ----
+// --- Heartbeat ---
 function beat(scale, duration) {
   if (!heart) return;
 
@@ -77,75 +69,61 @@ function beat(scale, duration) {
   heart.style.transform = `rotate(-45deg) scale(${scale})`;
 }
 
-function heartbeat() {
-  // human-ish lub-dub with random timing
-  const lub = 1.25 + Math.random() * 0.10;
-  const dub = 1.12 + Math.random() * 0.07;
+function heartbeatLoop() {
+  const lub = 1.25 + Math.random() * 0.08;
+  const dub = 1.15 + Math.random() * 0.05;
 
   beat(lub, 120);
   setTimeout(() => beat(dub, 90), 150);
   setTimeout(() => beat(1, 180), 320);
 
-  const next = 780 + Math.random() * 520;
-  setTimeout(heartbeat, next);
+  const next = 800 + Math.random() * 500;
+  setTimeout(heartbeatLoop, next);
 }
 
-// ---- Word reveal ----
+// --- Word reveal ---
 function revealWords() {
-  if (!words.length) return;
   words.forEach((w, i) => {
-    setTimeout(() => w.classList.add("show"), i * 180);
+    setTimeout(() => w.classList.add("show"), i * 220);
   });
 }
 
-// ---- Music ----
+// --- Music (no analyser / no beat sync) ---
 function startMusic() {
   if (!music) return;
   music.volume = 0.4;
   music.play().catch(() => {
-    // autoplay rules: user must click button/heart
+    // If browser blocks it, user must click again (normal)
   });
 }
 
-// ---- Boot ----
 window.addEventListener("load", () => {
-  // make sure we start at top
-  window.scrollTo(0, 0);
+  // card entrance + text
+  setTimeout(() => container?.classList.add("show"), 150);
 
-  // entrance
-  if (container) {
-    container.classList.add("show");
-    setTimeout(() => {
-      container.classList.add("show-text");
-      revealWords();
-    }, 400);
+  setTimeout(() => {
+    container?.classList.add("show-text");
+    revealWords();
+  }, 950);
 
-    setTimeout(() => {
-      container.classList.add("show-sub");
-    }, 700);
-  }
+  setTimeout(() => container?.classList.add("show-sub"), 1350);
 
-  // slideshow
-  preload(images);
-  if (bgA && images.length) {
+  // start heartbeat
+  setTimeout(heartbeatLoop, 1100);
+
+  // start background
+  if (images.length) {
     setBg(bgA, images[0]);
     bgA.style.opacity = "1";
     imgIndex = 1;
+    setTimeout(nextImage, 3500);
   }
-  setTimeout(nextImage, 3500);
-
-  // heartbeat
-  setTimeout(heartbeat, 900);
 });
 
 // click surge
-if (heart) {
-  heart.addEventListener("click", () => {
-    beat(1.6, 120);
-    startMusic();
-  });
-}
+heart?.addEventListener("click", () => {
+  beat(1.6, 120);
+});
 
-if (playBtn) {
-  playBtn.addEventListener("click", startMusic);
-}
+// play music button
+playBtn?.addEventListener("click", startMusic);
