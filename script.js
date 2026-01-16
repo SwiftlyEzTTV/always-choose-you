@@ -1,3 +1,5 @@
+window.scrollTo(0, 0);
+
 const heart = document.getElementById("heart");
 const container = document.querySelector(".container");
 const message = document.getElementById("message");
@@ -122,3 +124,4 @@ window.addEventListener("load", function () {
   if (bgA && images.length) {
     setBg(bgA, images[0]);
     bgA.
+
