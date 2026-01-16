@@ -127,3 +127,60 @@ heart?.addEventListener("click", () => {
 
 // play music button
 playBtn?.addEventListener("click", startMusic);
+
+
+// ----- Lightbox (click to expand images) -----
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const lightboxClose = document.querySelector(".lightbox-close");
+
+// Make any image with .clickable open the lightbox
+document.addEventListener("click", (e) => {
+  const img = e.target.closest("img.clickable");
+  if (!img) return;
+
+  const src = img.getAttribute("src");
+  const alt = img.getAttribute("alt") || "Expanded image";
+
+  if (!lightbox || !lightboxImg) return;
+
+  lightboxImg.src = src;
+  lightboxImg.alt = alt;
+
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+});
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  // clear image after close (prevents weird flashing sometimes)
+  if (lightboxImg) {
+    lightboxImg.src = "";
+    lightboxImg.alt = "";
+  }
+}
+
+// Close button
+if (lightboxClose) {
+  lightboxClose.addEventListener("click", closeLightbox);
+}
+
+// Click outside image closes
+if (lightbox) {
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+}
+
+// ESC closes
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && lightbox?.classList.contains("open")) {
+    closeLightbox();
+  }
+});
+
