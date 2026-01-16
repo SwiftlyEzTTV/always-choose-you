@@ -55,12 +55,14 @@
 body{
   min-height: 100vh;
   margin: 0;
-  display: grid;
-  place-items: center;
   padding: 24px;
   color: var(--text);
   font-family: Georgia, serif;
+
+  /* allow scroll sections */
+  display: block;
 }
+
 
 /* GLASS CARD */
 .container{
@@ -210,6 +212,9 @@ body{
   margin: 16px auto 0;
   text-align: left;
 }
+.container{
+  margin: 0 auto;           /* centers the card */
+}
 
 .gallery-title{
   margin: 0 0 10px;
@@ -243,3 +248,4 @@ body{
   filter: none !important;
   transform: none !important;
 }
+
