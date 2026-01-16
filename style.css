@@ -7,6 +7,21 @@
   --panelBorder: rgba(255, 255, 255, 0.10);
 }
 
+.hero{
+  position: fixed;
+  inset: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+.hero .container{
+  pointer-events: auto;
+}
+
+
 /* FULL PAGE BACKGROUND SLIDESHOW */
 .page-bg{
   position: fixed;
@@ -55,7 +70,6 @@
 body{
   min-height: 100vh;
   margin: 0;
-  padding: 24px;
   color: var(--text);
   font-family: Georgia, serif;
 
@@ -207,15 +221,14 @@ body{
 }
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
 
-.container{
-  margin: 0 auto;           /* centers the card */
-}
-
 
 .gallery{
   width: min(960px, 92vw);
   margin: 40px auto 60px;
   padding: 18px 16px;
+  margin-top: calc(100vh +40px);
+  position: relative;
+  z-index: 2;
 
   /* not glass, just clean */
   background: rgba(0,0,0,0.18);
@@ -247,4 +260,5 @@ body{
   /* ✅ ensure NOT blurred */
   filter: none !important;
 }
+
 
