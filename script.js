@@ -17,7 +17,7 @@ const images = [
   "./FiveM_GTAProcess_oEmscc2RQC.webp",
   "./FiveM_GTAProcess_R8JTZR0Nit.webp",
   "./image.webp",
-  "./image (1).webp",
+  "./image (1).webp"
 ].map(encodeURI);
 
 let imgIndex = 0;
@@ -26,20 +26,22 @@ let slideshowTimer = null;
 
 function setBg(el, src) {
   if (!el) return;
-  el.style.backgroundImage = `url("${src}")`;
+  el.style.backgroundImage = 'url("' + src + '")';
 }
 
 function preloadImages(list) {
-  list.forEach((src) => {
+  for (let k = 0; k < list.length; k++) {
     const img = new Image();
-    img.src = src;
-  });
+    img.src = list[k];
+  }
 }
 
 function flashOnce() {
   if (!flash) return;
   flash.classList.add("on");
-  setTimeout(() => flash.classList.remove("on"), 120);
+  setTimeout(function () {
+    flash.classList.remove("on");
+  }, 120);
 }
 
 function nextImage() {
@@ -67,12 +69,12 @@ function nextImage() {
 function beat(scale, duration) {
   if (!heart || !message) return;
 
-  heart.style.transition = `transform ${duration}ms ease-in-out`;
-  heart.style.transform = `rotate(-45deg) scale(${scale})`;
+  heart.style.transition = "transform " + duration + "ms ease-in-out";
+  heart.style.transform = "rotate(-45deg) scale(" + scale + ")";
 
-  message.style.transition = `transform ${duration}ms ease-in-out, opacity ${duration}ms ease-in-out`;
-  message.style.transform = `scale(${1 + (scale - 1) * 0.2})`;
-  message.style.opacity = 0.85 + (scale - 1) * 0.35;
+  message.style.transition = "transform " + duration + "ms ease-in-out, opacity " + duration + "ms ease-in-out";
+  message.style.transform = "scale(" + (1 + (scale - 1) * 0.2) + ")";
+  message.style.opacity = String(0.85 + (scale - 1) * 0.35);
 }
 
 function heartbeat() {
@@ -80,60 +82,43 @@ function heartbeat() {
   const dub = 1.10 + Math.random() * 0.06;
 
   beat(lub, 120);
-  setTimeout(() => beat(dub, 90), 150);
-  setTimeout(() => beat(1, 200), 330);
+  setTimeout(function () { beat(dub, 90); }, 150);
+  setTimeout(function () { beat(1, 200); }, 330);
 
   const pause = 900 + Math.random() * 500;
   setTimeout(heartbeat, pause);
 }
 
 function revealWords() {
-  if (!words.length) return;
-  words.forEach((word, index) => {
-    setTimeout(() => word.classList.add("show"), index * 220);
-  });
+  if (!words || words.length === 0) return;
+  for (let i = 0; i < words.length; i++) {
+    (function (idx) {
+      setTimeout(function () {
+        words[idx].classList.add("show");
+      }, idx * 220);
+    })(i);
+  }
 }
 
 function startMusic() {
   if (musicStarted || !music) return;
   music.volume = 0.4;
-  music.play().catch((err) => console.log("Music play failed:", err));
+  music.play().catch(function (err) {
+    console.log("Music play failed:", err);
+  });
   musicStarted = true;
 }
 
-window.addEventListener("load", () => {
-  // ✅ always show the card even if slideshow fails
+window.addEventListener("load", function () {
+  // Always show the card even if slideshow fails
   if (container) {
     container.classList.add("show");
-    setTimeout(() => container.classList.add("show-text"), 650);
-    setTimeout(() => container.classList.add("show-sub"), 950);
+    setTimeout(function () { container.classList.add("show-text"); }, 650);
+    setTimeout(function () { container.classList.add("show-sub"); }, 950);
   }
 
-  // slideshow init
   preloadImages(images);
 
   if (bgA && images.length) {
     setBg(bgA, images[0]);
-    bgA.style.opacity = "1";
-    imgIndex = 1;
-  }
-
-  if (slideshowTimer) clearTimeout(slideshowTimer);
-  slideshowTimer = setTimeout(nextImage, 3500);
-
-  // text/words + heartbeat
-  setTimeout(() => revealWords(), 700);
-  setTimeout(() => heartbeat(), 900);
-});
-
-// controls
-if (heart) {
-  heart.addEventListener("click", () => {
-    beat(1.6, 120);
-    startMusic();
-  });
-}
-
-if (playBtn) {
-  playBtn.addEventListener("click", startMusic);
-}
+    bgA.
