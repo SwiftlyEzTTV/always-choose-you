@@ -221,8 +221,8 @@ body{
 }
 
 .gallery-grid{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: grid; !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); !important;
   gap: 12px;
 }
 
@@ -235,6 +235,7 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,0.35);
   filter: none;
 }
+
 
 
 
