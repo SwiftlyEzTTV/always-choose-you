@@ -292,3 +292,12 @@ body{
   transform: none !important;
 }
 
+
+/* --- DEBUG OVERRIDE: force the words to show --- */
+#message .words,
+#message .words span{
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline !important;
+  transform: none !important;
+}
