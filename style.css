@@ -16,7 +16,7 @@
   background: radial-gradient(circle, var(--bg1), var(--bg2));
 }
 
-/* bg images */
+/* bg images (KEEP SHARP) */
 .page-bg .bg{
   position: absolute;
   inset: 0;
@@ -25,10 +25,8 @@
   opacity: 0;
   transition: opacity 1s ease;
   z-index: 0;
-  background-position: center;
-  background-size: cover;
 
-  /* IMPORTANT: remove blur from the whole page */
+  /* make sure no global blur is applied */
   filter: none !important;
   transform: none !important;
 }
@@ -41,8 +39,6 @@
   background: rgba(10, 0, 20, 0.55);
   z-index: 1;
 }
-
-#heart, #playBtn { touch-action: manipulation; }
 
 /* flash sits ABOVE the tint */
 .page-bg .flash{
@@ -57,18 +53,14 @@
 .page-bg .flash.on{ opacity:0.12; }
 
 body{
-  min-height: 100svh;         /* mobile-safe viewport height */
-  min-height: 100dvh;         /* newer browsers */
+  min-height: 100vh;
   margin: 0;
   display: grid;
   place-items: center;
-  padding: 18px;
-  padding-bottom: calc(18px + env(safe-area-inset-bottom));
-  padding-top: calc(18px + env(safe-area-inset-top));
+  padding: 24px;
   color: var(--text);
   font-family: Georgia, serif;
 }
-
 
 /* GLASS CARD */
 .container{
@@ -81,6 +73,7 @@ body{
   border: 1px solid var(--panelBorder);
   box-shadow: 0 20px 60px rgba(0,0,0,0.45);
 
+  /* blur ONLY behind the card */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
@@ -182,7 +175,6 @@ body{
   max-height: min(260px, 34vh);
   overflow-y: auto;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 .letter p{
@@ -212,38 +204,3 @@ body{
   -webkit-backdrop-filter: blur(8px);
 }
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
-
-@media (max-width: 520px){
-  .container{
-    width: 100%;
-    padding: 18px 14px;
-    border-radius: 18px;
-  }
-
-  #heart{
-    width: 86px;
-    height: 78px;
-    margin-bottom: 14px;
-  }
-  #heart::before,
-  #heart::after{
-    width: 86px;
-    height: 78px;
-  }
-  #heart::before{ top: -43px; }
-  #heart::after{ left: 43px; }
-
-  #sub-message{ margin: 8px 0 14px; }
-
-  .letter{
-    max-height: 42svh; /* more readable on phones */
-    max-height: 42dvh;
-    padding: 14px;
-  }
-
-  #playBtn{
-    width: 100%;
-    max-width: 220px;
-  }
-}
-
