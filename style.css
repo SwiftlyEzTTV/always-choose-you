@@ -274,3 +274,14 @@ body{
   filter: none !important;
 }
 
+
+/* FORCE text to show (overrides any earlier opacity:0 rules) */
+#message{
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+#sub-message{
+  opacity: 0.9 !important;
+  transform: none !important;
+}
