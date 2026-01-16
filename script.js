@@ -19,7 +19,7 @@ const images = [
   "FiveM_GTAProcess_R8JTZR0Nit.webp",
   "image.webp",
   "image (1).webp",
-  "download (1).png",
+  "image44.webp",
   "download (2).png",
   "download.png",
   "image (4).webp",
@@ -164,4 +164,5 @@ if (heart) {
 if (playBtn) {
   playBtn.addEventListener("click", startMusic);
 }
+
 
