@@ -32,7 +32,7 @@ const images = [
   "Screenshot_2025-12-14_090741.webp",
   "Screenshot_2025-12-14_090821.webp",
   "Screenshot_2025-12-14_090904.webp",
-  "Screenshot_2025-12-14_091113.webp,
+  "Screenshot_2025-12-14_091113.webp",
 ].map((src) => encodeURI(src));
 
 let imgIndex = 0;
@@ -164,3 +164,4 @@ if (heart) {
 if (playBtn) {
   playBtn.addEventListener("click", startMusic);
 }
+
