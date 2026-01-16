@@ -125,3 +125,13 @@ window.addEventListener("load", function () {
     setBg(bgA, images[0]);
     bgA.
 
+
+const hero = document.querySelector(".hero");
+
+window.addEventListener("scroll", () => {
+  if (!hero) return;
+
+  // hide card once user scrolls down a bit
+  if (window.scrollY > 80) hero.classList.add("is-hidden");
+  else hero.classList.remove("is-hidden");
+});
