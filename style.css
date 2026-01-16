@@ -252,6 +252,63 @@ body{
 
 
 
+.moments{
+  width: min(1000px, 92vw);
+  margin: 70px auto 120px;
+}
+
+.moments-title{
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 32px;
+  color: #ffd6e8;
+}
+
+.moment{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 26px;
+  align-items: center;
+  margin-bottom: 42px;
+
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.20);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+.moment.reverse{
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.moment.reverse .moment-text{
+  order: 2;
+}
+
+.moment-text{
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: rgba(255,214,232,0.92);
+}
+
+.moment img{
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+
+  /* hover zoom */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.moment img:hover{
+  transform: scale(1.06);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+}
+
 
 
 
