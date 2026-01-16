@@ -25,6 +25,8 @@
   opacity: 0;
   transition: opacity 1s ease;
   z-index: 0;
+  background-position: center;
+  background-size: cover;
 
   /* IMPORTANT: remove blur from the whole page */
   filter: none !important;
@@ -40,6 +42,8 @@
   z-index: 1;
 }
 
+#heart, #playBtn { touch-action: manipulation; }
+
 /* flash sits ABOVE the tint */
 .page-bg .flash{
   position:absolute;
@@ -53,14 +57,18 @@
 .page-bg .flash.on{ opacity:0.12; }
 
 body{
-  min-height: 100vh;
+  min-height: 100svh;         /* mobile-safe viewport height */
+  min-height: 100dvh;         /* newer browsers */
   margin: 0;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 18px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  padding-top: calc(18px + env(safe-area-inset-top));
   color: var(--text);
   font-family: Georgia, serif;
 }
+
 
 /* GLASS CARD */
 .container{
@@ -174,6 +182,7 @@ body{
   max-height: min(260px, 34vh);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
 
 .letter p{
@@ -203,5 +212,39 @@ body{
   -webkit-backdrop-filter: blur(8px);
 }
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
+
+@media (max-width: 520px){
+  .container{
+    width: 100%;
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+
+  #heart{
+    width: 86px;
+    height: 78px;
+    margin-bottom: 14px;
+  }
+  #heart::before,
+  #heart::after{
+    width: 86px;
+    height: 78px;
+  }
+  #heart::before{ top: -43px; }
+  #heart::after{ left: 43px; }
+
+  #sub-message{ margin: 8px 0 14px; }
+
+  .letter{
+    max-height: 42svh; /* more readable on phones */
+    max-height: 42dvh;
+    padding: 14px;
+  }
+
+  #playBtn{
+    width: 100%;
+    max-width: 220px;
+  }
+}
 
 
