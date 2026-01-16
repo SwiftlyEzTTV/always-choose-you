@@ -206,7 +206,7 @@ body{
   position: relative;
   z-index: 2;
 
-  width: min(1400px, 96vw); /* 👈 wider */
+  width: min(2400px, 96vw); /* 👈 wider */
   margin: 60px auto;
 
   padding: 20px;
@@ -236,6 +236,7 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,0.35);
   filter: none;
 }
+
 
 
 
