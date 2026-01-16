@@ -16,7 +16,8 @@
   background: radial-gradient(circle, var(--bg1), var(--bg2));
 }
 
-/* bg images */.page-bg .bg{
+/* bg images */
+.page-bg .bg{
   position: absolute;
   inset: 0;
   background-position: center;
@@ -25,11 +26,10 @@
   transition: opacity 1s ease;
   z-index: 0;
 
-  /* IMPORTANT: no blur on full page */
-  filter: none;
-  transform: none;
+  /* IMPORTANT: remove blur from the whole page */
+  filter: none !important;
+  transform: none !important;
 }
-
 
 /* dark tint overlay */
 .page-bg::after{
@@ -73,8 +73,8 @@ body{
   border: 1px solid var(--panelBorder);
   box-shadow: 0 20px 60px rgba(0,0,0,0.45);
 
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 
   transform: translateY(140px);
   opacity: 0;
@@ -203,4 +203,5 @@ body{
   -webkit-backdrop-filter: blur(8px);
 }
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
+
 
