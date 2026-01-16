@@ -136,3 +136,11 @@ window.addEventListener("scroll", () => {
   else hero.classList.remove("is-hidden");
 });
 
+const hero = document.querySelector(".hero");
+
+window.addEventListener("scroll", () => {
+  if (!hero) return;
+  if (window.scrollY > 80) hero.classList.add("is-hidden");
+  else hero.classList.remove("is-hidden");
+});
+
