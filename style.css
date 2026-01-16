@@ -46,18 +46,21 @@
 }
 .page-bg .flash.on{ opacity:0.12; }
 
-/* HERO keeps the glass card centered */
+/* HERO now scrolls with page */
 .hero{
-  position: fixed;
-  inset: 0;
+  position: relative;          /* 🔴 was fixed */
+  min-height: 100vh;           /* full first screen */
   display: grid;
   place-items: center;
   padding: 24px;
-  z-index: 10;
-  pointer-events: none;
   box-sizing: border-box;
+  z-index: 2;
+  pointer-events: none;
 }
-.hero .container{ pointer-events: auto; }
+
+.hero .container{
+  pointer-events: auto;
+}
 
 body{
   margin: 0;
@@ -232,3 +235,4 @@ body{
   box-shadow: 0 12px 26px rgba(0,0,0,0.35);
   filter: none;
 }
+
