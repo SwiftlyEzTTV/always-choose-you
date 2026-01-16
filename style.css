@@ -7,6 +7,28 @@
   --panelBorder: rgba(255, 255, 255, 0.10);
 }
 
+
+/* Handwritten (Google Fonts) */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap");
+
+/* Apply to moments section text */
+.moments,
+.moments .moment-text,
+.moments h2 {
+  font-family: "Caveat", cursive;
+}
+
+.moments h2{
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 2.2rem;
+}
+
+.moments .moment-text{
+  font-size: 1.25rem;
+  line-height: 1.35;
+}
+
 /* FULL PAGE BACKGROUND SLIDESHOW */
 .page-bg{
   position: fixed;
@@ -61,6 +83,54 @@
 .hero .container{
   pointer-events: auto;
 }
+
+.lightbox{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+}
+
+.lightbox.open{
+  display: flex;
+}
+
+.lightbox img{
+  max-width: min(1100px, 92vw);
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 30px 120px rgba(0,0,0,0.75);
+  background: rgba(0,0,0,0.35);
+}
+
+.lightbox-close{
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.92);
+  font-size: 28px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.lightbox-close:hover{
+  background: rgba(255,255,255,0.16);
+}
+
 
 body{
   margin: 0;
@@ -321,6 +391,7 @@ body{
   transform: scale(1.06);
   box-shadow: 0 18px 40px rgba(0,0,0,0.6);
 }
+
 
 
 
