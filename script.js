@@ -11,39 +11,19 @@ const flash = document.querySelector(".flash");
 const music = document.getElementById("music");
 const playBtn = document.getElementById("playBtn");
 
-// ✅ Put ALL your image filenames here (same folder as index.html)
-// If you moved them into /images, use: "images/filename.webp"
-const images = [
-  "FiveM_GTAProcess_oEmscc2RQC.webp",
-  "FiveM_GTAProcess_R8JTZR0Nit.webp",
-  "image.webp",
-  "image (1).webp",
-  "FiveM_GTAProcess_8hm8QXAMP6.webp",
-  "download (2).png",
-  "download.png",
-  "image (4).webp",
-  "image (2).webp",
-  "image (3).webp",
-  "image44.webp",
-  "image99.webp",
-  "image76.webp",
-  "Screenshot_2025-12-07_060603.webp",
-  "Screenshot_2025-12-14_085437.webp",
-  "Screenshot_2025-12-14_090640.webp",
-  "Screenshot_2025-12-14_090741.webp",
-  "Screenshot_2025-12-14_090821.webp",
-  "Screenshot_2025-12-14_090904.webp",
-  "Screenshot_2025-12-14_091113.webp,
+let musicStarted = false;
 
-].map(encodeURI); // handles spaces like "image (1).webp"
+const images = [
+  "./FiveM_GTAProcess_oEmscc2RQC.webp",
+  "./FiveM_GTAProcess_R8JTZR0Nit.webp",
+  "./image.webp",
+  "./image (1).webp",
+].map(encodeURI);
 
 let imgIndex = 0;
 let showingA = true;
 let slideshowTimer = null;
 
-let musicStarted = false;
-
-// ---------- Background slideshow ----------
 function setBg(el, src) {
   if (!el) return;
   el.style.backgroundImage = `url("${src}")`;
@@ -84,7 +64,6 @@ function nextImage() {
   slideshowTimer = setTimeout(nextImage, 3500);
 }
 
-// ---------- Heart beat ----------
 function beat(scale, duration) {
   if (!heart || !message) return;
 
@@ -97,7 +76,6 @@ function beat(scale, duration) {
 }
 
 function heartbeat() {
-  // human-like lub–dub + random pause
   const lub = 1.22 + Math.random() * 0.08;
   const dub = 1.10 + Math.random() * 0.06;
 
@@ -109,7 +87,6 @@ function heartbeat() {
   setTimeout(heartbeat, pause);
 }
 
-// ---------- Text reveal ----------
 function revealWords() {
   if (!words.length) return;
   words.forEach((word, index) => {
@@ -117,18 +94,22 @@ function revealWords() {
   });
 }
 
-// ---------- Music ----------
 function startMusic() {
   if (musicStarted || !music) return;
-
   music.volume = 0.4;
   music.play().catch((err) => console.log("Music play failed:", err));
   musicStarted = true;
 }
 
-// ---------- Load ----------
 window.addEventListener("load", () => {
-  // init slideshow
+  // ✅ always show the card even if slideshow fails
+  if (container) {
+    container.classList.add("show");
+    setTimeout(() => container.classList.add("show-text"), 650);
+    setTimeout(() => container.classList.add("show-sub"), 950);
+  }
+
+  // slideshow init
   preloadImages(images);
 
   if (bgA && images.length) {
@@ -140,35 +121,19 @@ window.addEventListener("load", () => {
   if (slideshowTimer) clearTimeout(slideshowTimer);
   slideshowTimer = setTimeout(nextImage, 3500);
 
-  // entrance
-  if (container) setTimeout(() => container.classList.add("show"), 150);
-
-  // show main text + words
-  if (container) {
-    setTimeout(() => {
-      container.classList.add("show-text");
-      revealWords();
-    }, 950);
-
-    // show sub message
-    setTimeout(() => {
-      if (subMessage) container.classList.add("show-sub");
-    }, 1350);
-  }
-
-  // start heartbeat
-  setTimeout(() => heartbeat(), 1600);
+  // text/words + heartbeat
+  setTimeout(() => revealWords(), 700);
+  setTimeout(() => heartbeat(), 900);
 });
 
-// ---------- Controls ----------
+// controls
 if (heart) {
   heart.addEventListener("click", () => {
-    beat(1.6, 120); // click surge
-    startMusic();   // start music on first click
+    beat(1.6, 120);
+    startMusic();
   });
 }
 
 if (playBtn) {
   playBtn.addEventListener("click", startMusic);
 }
-
