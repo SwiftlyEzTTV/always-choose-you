@@ -19,6 +19,20 @@ const images = [
   "FiveM_GTAProcess_R8JTZR0Nit.webp",
   "image.webp",
   "image (1).webp",
+  "download (1).png",
+  "download (2).png",
+  "download.png",
+  "image (4).webp",
+  "image (2).webp",
+  "image (3).webp",
+  "image76.webp",
+  "Screenshot_2025-12-07_060603.webp",
+  "Screenshot_2025-12-14_085437.webp",
+  "Screenshot_2025-12-14_090640.webp",
+  "Screenshot_2025-12-14_090741.webp",
+  "Screenshot_2025-12-14_090821.webp",
+  "Screenshot_2025-12-14_090904.webp",
+  "Screenshot_2025-12-14_091113.webp,
 ].map((src) => encodeURI(src));
 
 let imgIndex = 0;
