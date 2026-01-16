@@ -16,10 +16,10 @@ const playBtn = document.getElementById("playBtn");
 let musicStarted = false;
 
 const images = [
-  "./FiveM_GTAProcess_oEmscc2RQC.webp",
-  "./FiveM_GTAProcess_R8JTZR0Nit.webp",
-  "./image.webp",
-  "./image (1).webp"
+  "FiveM_GTAProcess_oEmscc2RQC.webp",
+  "FiveM_GTAProcess_R8JTZR0Nit.webp",
+  "image.webp",
+  "image (1).webp"
 ].map(encodeURI);
 
 let imgIndex = 0;
@@ -135,3 +135,4 @@ window.addEventListener("scroll", () => {
   if (window.scrollY > 80) hero.classList.add("is-hidden");
   else hero.classList.remove("is-hidden");
 });
+
