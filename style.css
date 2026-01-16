@@ -7,33 +7,7 @@
   --panelBorder: rgba(255, 255, 255, 0.10);
 }
 
-/* ---------------- HERO (fixed centered card) ---------------- */
-.hero{
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  box-sizing: border-box;
-  z-index: 10;
-
-  /* lets the page scroll under it */
-  pointer-events: none;
-
-  /* fade out when scrolling (JS toggles .is-hidden) */
-  transition: opacity 300ms ease;
-}
-
-.hero .container{
-  pointer-events: auto;
-}
-
-.hero.is-hidden{
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ---------------- FULL PAGE BACKGROUND SLIDESHOW ---------------- */
+/* FULL PAGE BACKGROUND SLIDESHOW */
 .page-bg{
   position: fixed;
   inset: 0;
@@ -42,7 +16,6 @@
   background: radial-gradient(circle, var(--bg1), var(--bg2));
 }
 
-/* bg images (KEEP SHARP) */
 .page-bg .bg{
   position: absolute;
   inset: 0;
@@ -50,14 +23,10 @@
   background-size: cover;
   opacity: 0;
   transition: opacity 1s ease;
-  z-index: 0;
-
-  /* ensure no blur on the page background */
-  filter: none !important;
-  transform: none !important;
+  filter: none;
+  transform: none;
 }
 
-/* dark tint overlay */
 .page-bg::after{
   content:"";
   position:absolute;
@@ -66,7 +35,6 @@
   z-index: 1;
 }
 
-/* flash sits ABOVE the tint */
 .page-bg .flash{
   position:absolute;
   inset:0;
@@ -78,34 +46,42 @@
 }
 .page-bg .flash.on{ opacity:0.12; }
 
-/* ---------------- PAGE BASE ---------------- */
+/* HERO keeps the glass card centered */
+.hero{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+.hero .container{ pointer-events: auto; }
+
 body{
   margin: 0;
   font-family: Georgia, serif;
   color: var(--text);
-  min-height: 100vh;
+  min-height: 200vh; /* gives room to scroll to gallery */
 }
 
-/* ---------------- GLASS CARD ---------------- */
+/* GLASS CARD */
 .container{
   text-align: center;
   width: min(720px, 92vw);
   padding: 28px 22px;
   border-radius: 20px;
-
   background: linear-gradient(180deg, var(--panel), rgba(255,255,255,0.03));
   border: 1px solid var(--panelBorder);
   box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-
-  /* blur ONLY behind the card */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
-  /* visible by default (so it never "disappears" if JS fails) */
-  opacity: 1;
+  transform: translateY(140px);
+  opacity: 0;
 }
 
-/* Overshoot entrance (optional, JS adds .show) */
 .container.show{
   animation: riseUp 1.1s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
 }
@@ -116,7 +92,7 @@ body{
   100%{ transform: translateY(0); opacity: 1; }
 }
 
-/* ---------------- HEART ---------------- */
+/* Heart */
 #heart{
   position: relative;
   width: 104px;
@@ -141,13 +117,13 @@ body{
 #heart::before{ top: -52px; left: 0; }
 #heart::after{ left: 52px; top: 0; }
 
-/* ---------------- TITLE + SUBTITLE ---------------- */
+/* Title + subtitle */
 #message{
   margin: 0;
   font-size: clamp(1.2rem, 2.3vw, 1.6rem);
   letter-spacing: 0.4px;
-  opacity: 1;                 /* ✅ was 0 */
-  transform: translateY(0);    /* ✅ was translateY(10px) */
+  opacity: 0;
+  transform: translateY(10px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -155,8 +131,8 @@ body{
   margin: 10px 0 18px;
   font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   color: var(--muted);
-  opacity: 0.9;               /* ✅ was 0 */
-  transform: translateY(0);    /* ✅ was translateY(10px) */
+  opacity: 0;
+  transform: translateY(10px);
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
@@ -185,11 +161,11 @@ body{
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .words span.show{
-  opacity: 0.9;
+  opacity: 0.95;
   transform: translateY(0);
 }
 
-/* ---------------- LETTER ---------------- */
+/* Letter */
 .letter{
   text-align: left;
   margin: 14px auto 0;
@@ -210,13 +186,7 @@ body{
 }
 .letter p + p{ margin-top: 12px; }
 
-.letter::-webkit-scrollbar{ width: 10px; }
-.letter::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,0.12);
-  border-radius: 999px;
-}
-
-/* ---------------- PLAY BUTTON ---------------- */
+/* Play button */
 #playBtn{
   margin: 6px auto 14px;
   padding: 10px 14px;
@@ -225,25 +195,16 @@ body{
   background: rgba(255,255,255,0.08);
   color: var(--text);
   cursor: pointer;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 #playBtn:hover{ background: rgba(255,255,255,0.12); }
 
-/* ---------------- GALLERY (scroll section) ---------------- */
+/* GALLERY (scroll down) */
 .gallery{
   position: relative;
   z-index: 2;
-
-  /* forces scroll before you see it */
-  margin-top: 120vh;
-
   width: min(960px, 92vw);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 80px;
+  margin: 120vh auto 60px; /* forces scroll */
   padding: 18px 16px;
-
   background: rgba(0,0,0,0.18);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 16px;
@@ -269,35 +230,5 @@ body{
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 12px 26px rgba(0,0,0,0.35);
-
-  /* ensure NOT blurred */
-  filter: none !important;
-}
-
-
-/* FORCE text to show (overrides any earlier opacity:0 rules) */
-#message{
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-#sub-message{
-  opacity: 0.9 !important;
-  transform: none !important;
-}
-
-/* FORCE the words to show (in case JS doesn't add .show) */
-.words span{
-  opacity: 0.9 !important;
-  transform: none !important;
-}
-
-
-/* --- DEBUG OVERRIDE: force the words to show --- */
-#message .words,
-#message .words span{
-  opacity: 1 !important;
-  visibility: visible !important;
-  display: inline !important;
-  transform: none !important;
+  filter: none;
 }
